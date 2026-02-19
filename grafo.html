@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Grafos</title>
+            <link rel="stylesheet" href="css/index.css">
+            <link rel="stylesheet" href="css/grafo.css">
+</head>
+<body>
+
+    <div class="barra-superior">
+
+        <button class="menu-btn" onclick="Menu()">☰</button>
+
+    </div>
+
+         <header>
+            <h1>GRAFOS</h1>
+        </header>
+
+        <div class="contenedor">
+                <nav 
+                    id="sidebar" class="sidebar">
+                    <a href="index.html">Inicio</a>
+                    <a href="pagina1.html">Algoritmos matematicos</a>
+                    <a href="grafo.html">Grafo</a>
+
+                </nav>
+
+            <main class="contenido">
+                 <section class="explicacion">
+                        <h2>¿Qué es un Grafo?</h2>
+
+                        <p>
+                            Un grafo es una estructura matemática que se utiliza para representar relaciones entre objetos. 
+                            Está formado por un conjunto de vértices (también llamados nodos) y un conjunto de aristas (o conexiones) que unen pares de vértices. 
+                            Los grafos pueden ser dirigidos, donde las aristas tienen un sentido específico, o no dirigidos, donde las conexiones son bidireccionales. 
+                            Además, las aristas pueden tener un peso asociado, que representa un valor como distancia, costo o tiempo.
+                        </p>
+
+                        <p>
+                            Los grafos se usan ampliamente en informática y matemáticas para modelar redes de transporte, redes sociales, rutas de comunicación, estructuras de datos, y muchas otras aplicaciones. 
+                             Comprender cómo crear y manipular grafos es fundamental para resolver problemas de caminos más cortos, optimización de rutas, flujo de información y análisis de redes complejas.
+                        </p>
+                </section>
+                     <section class="grafo-simulacion">
+                        <h2>Simulación de Grafo</h2>
+                            <p>Haz click en el recuadro para crear vértices. Luego selecciona un vértice y haz click en otro para crear una arista. Ingresa peso y dirección cuando se solicite.</p>
+                        
+                        <div class="botones-grafo">
+                             <button onclick="borrarTodo()">Borrar Todo</button>
+                        </div>
+
+
+                         <div
+                            id="grafo-container"
+                            style="width: 100%; height: 650px; border: 2px solid #000080; margin: 0 auto; border-radius: 10px;">
+                    </section>
+            </main>
+         </div>
+        <script src="js/script.js"></script>   
+        <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+        <script src="js/grafo.js"></script>
+</body>
+</html>
