@@ -4,95 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analisis de Algoritmos</title>
-        <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
     <div class="barra-superior">
-
         <button class="menu-btn" onclick="Menu()">☰</button>
-
     </div>
 
+    <!-- HEADER BANNER -->
     <header>
-
-           <img src="img/escudo.jpg" alt="escudo UCB">
-
-                <h1>ANALISIS DE ALGORITMOS</h1>
+        <img src="img/escudo.jpg" alt="banner UCB">
+        <h1>ANALISIS DE ALGORITMOS</h1>
     </header>
 
-        <div class="contenedor">
+    <div class="contenedor">
 
-            <nav id="sidebar" class="sidebar">
+        <!-- SIDEBAR -->
+        <nav id="sidebar" class="sidebar">
             <a href="index.html">Inicio</a>
             <a href="pagina1.html">Algoritmos matematicos</a>
             <a href="grafo.html">Grafo</a>
+             <a href="matriz.html">Matriz</a>
+        </nav>
 
-             </nav>
+        <main class="contenido">
 
-                <main class="contenido">
+            <!-- EXPLICACION -->
+            <section class="explicacion">
+                <h2>¿Qué es un algoritmo?</h2>
+                <p>
+                    Un algoritmo es un conjunto de pasos ordenados y finitos que permiten resolver un problema o realizar una tarea específica.
+                    En informática, los algoritmos son la base de todos los programas, ya que indican al computador exactamente qué hacer y en qué orden.
+                    Por ejemplo, un algoritmo puede utilizarse para ordenar números, buscar información o calcular resultados matemáticos.
+                </p>
+            </section>
 
-                    <section class="explicacion">
-                        <h2>¿Qué es un algoritmo?</h2>
+            <!-- VIDEOS -->
+            <section class="videos">
+                <h2>Videos sobre algoritmos</h2>
+                <div class="contenedor-videos">
+                    <iframe src="https://www.youtube.com/embed/U3CGMyjzlvM" title="Video algoritmo 1" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/f10jKIslSUY" title="Video algoritmo 2" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/UD240-OEbVY" title="Video algoritmo 3" allowfullscreen></iframe>
+                </div>
+            </section>
 
-                        <p>
-                            Un algoritmo es un conjunto de pasos ordenados y finitos que permiten resolver un problema o realizar una tarea específica.
-                            En informática, los algoritmos son la base de todos los programas, ya que indican al computador exactamente qué hacer y en qué orden.
-                             Por ejemplo, un algoritmo puede utilizarse para ordenar números, buscar información o calcular resultados matemáticos.
-                        </p>
+            <!-- MAPA -->
+            <section class="mapa">
+                <h2>Información</h2>
+                <iframe
+                    src="https://www.google.com/maps?q=Universidad+Catolica+Boliviana+La+Paz&output=embed"
+                    allowfullscreen>
+                </iframe>
+                <div class="mapa-info">
+                    <h3>Materia</h3>
+                    <p>Analisis de Algoritmos</p>
+                    <h3>Nombre</h3>
+                    <p>Lorena Maria Rojas Hidalgo</p>
+                </div>
+            </section>
 
-                    </div>
+        </main>
+    </div>
 
-                     </section>
-
-                      <section class="videos">
-
-                        <h2>Videos sobre algoritmos</h2>
-
-                         <div class="contenedor-videos">
-
-                             <iframe width="400" height="225"
-                              src="https://www.youtube.com/embed/U3CGMyjzlvM"
-                              title="Video algoritmo 1"
-                              frameborder="0"
-                              allowfullscreen>
-                             </iframe>
-
-                            <iframe width="400" height="225"
-                            src="https://www.youtube.com/embed/f10jKIslSUY"
-                            title="Video algoritmo 2"
-                            frameborder="0"
-                            allowfullscreen>
-                            </iframe>
-
-                            <iframe width="400" height="225"
-                            src="https://www.youtube.com/embed//UD240-OEbVY"
-                            title="Video algoritmo 3"
-                            frameborder="0"
-                            allowfullscreen>
-                            </iframe>
-
-                        </div>
-
-                    </section>
-
-                        <section class="mapa">
-
-                         <h2>Encuentranos</h2>
-
-                              <iframe
-                             src="https://www.google.com/maps?q=Universidad+Catolica+Boliviana+La+Paz&output=embed"
-                             width="600"
-                             height="450"
-                             style="border:0;"
-                             allowfullscreen="">
-                             </iframe>
-
-                         </section>       
-
-       
-           </main>
-        </div>
-        <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

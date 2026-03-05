@@ -1,84 +1,167 @@
-let nodos = new vis.DataSet([]);
-let aristas = new vis.DataSet([]);
-let contadorNodos = 1;
+// grafo.js
+var nodes = new vis.DataSet([]);
+var edges = new vis.DataSet([]);
+var container = document.getElementById("grafo-container");
+var contadorNodos = 0;
 
-const contenedor = document.getElementById('grafo-container');
-const datos = { nodes: nodos, edges: aristas };
-
-const opciones = {
-  nodes: {
-    shape: 'circle',
-    size: 50,
-    color: { background: '#1E90FF', border: '#000080' },
-    font: { color: 'white', size: 20, face: 'Arial', bold: true },
-    borderWidth: 3
-  },
-  edges: {
-    arrows: { to: { enabled: true, scaleFactor: 1.2 } },
-    smooth: { type: 'dynamic' },
-    color: { color: '#333', highlight: '#1E90FF' },
-    font: { color: 'black', size: 16, align: 'middle', background: 'white' },
-  },
-  physics: false,
-  manipulation: {
-    enabled: true,
-    addNode: function(data, callback) {
-      data.label = `N${contadorNodos++}`;
-      callback(data);
+// Opciones del grafo
+var options = {
+    manipulation: {
+        enabled: true,
+        addNode: function (data, callback) {
+            contadorNodos++;
+            data.label = "N" + contadorNodos;
+            callback(data);
+        },
+        addEdge: function (data, callback) {
+            if (data.from === data.to) { 
+                alert("❌ No se permite conectar un nodo consigo mismo"); 
+                return; 
+            }
+            var peso = prompt("Ingrese peso (entero):");
+            if (peso === null) return;
+            if (!Number.isInteger(Number(peso))) { 
+                alert("⚠️ Solo números enteros"); 
+                return; 
+            }
+            data.label = peso;
+            callback(data);
+        }
     },
-    addEdge: function(data, callback) {
-      const existeDirecta = aristas.get().some(a => a.from === data.from && a.to === data.to);
-      const totalEntreNodos = aristas.get().filter(a =>
-        (a.from === data.from && a.to === data.to) || (a.from === data.to && a.to === data.from)
-      ).length;
-
-      if (existeDirecta) {
-        alert("Ya existe una arista en esta dirección.");
-        return;
-      }
-      if (totalEntreNodos >= 2) {
-        alert("Solo se permiten dos aristas entre estos nodos (opuestas).");
-        return;
-      }
-
-      let peso = prompt(`Ingresa el peso de la arista ${nodos.get(data.from).label} → ${nodos.get(data.to).label}`);
-      if (!peso) return;
-      data.label = peso;
-
-      if (totalEntreNodos === 1) {
-        data.smooth = { type: 'curvedCW', roundness: 0.2 };
-      } else {
-        data.smooth = true;
-      }
-
-      callback(data);
-    },
-    editEdge: function(data, callback) {
-      let nuevoPeso = prompt(`Editar peso de la arista:`, data.label);
-      if (nuevoPeso !== null) data.label = nuevoPeso;
-      callback(data);
-    }
-  },
-  interaction: { multiselect: true, navigationButtons: true, selectable: true }
+    edges: { arrows: { to: true }, font: { align: "top" } },
+    physics: { enabled: true }
 };
 
-const red = new vis.Network(contenedor, datos, opciones);
+var data = { nodes, edges };
+var network = new vis.Network(container, data, options);
 
+// ---------------- FUNCIONES ----------------
+
+// Editar peso de arista
+function editarPeso() {
+    var seleccion = network.getSelectedEdges();
+    if (seleccion.length === 0) { alert("Selecciona una arista"); return; }
+    var nuevoPeso = prompt("Nuevo peso (entero):");
+    if (nuevoPeso === null) return;
+    if (!Number.isInteger(Number(nuevoPeso))) { alert("Solo números enteros"); return; }
+    edges.update({ id: seleccion[0], label: nuevoPeso });
+}
+
+// Borrar todo
 function borrarTodo() {
-  if (confirm("¿Seguro que quieres borrar todos los nodos y aristas?")) {
-    nodos.clear();
-    aristas.clear();
-    contadorNodos = 1;
-  }
+    if (nodes.length === 0 && edges.length === 0) { alert("Grafo vacío"); return; }
+    if (!confirm("¿Borrar todo?")) return;
+    nodes.clear();
+    edges.clear();
+    contadorNodos = 0;
 }
 
+// Borrar selección
 function borrarSeleccion() {
-  const seleccionados = red.getSelection();
-  if (!seleccionados.nodes.length && !seleccionados.edges.length) {
-    alert("Selecciona nodos o aristas para borrar.");
-    return;
-  }
-
-  nodos.remove(seleccionados.nodes);
-  aristas.remove(seleccionados.edges);
+    var ns = network.getSelectedNodes();
+    var es = network.getSelectedEdges();
+    nodes.remove(ns);
+    edges.remove(es);
 }
+
+// Guardar grafo en localStorage
+function guardarGrafo() {
+    if (nodes.length === 0 && edges.length === 0) {
+        alert("⚠️ No hay grafo para guardar.");
+        return;
+    }
+    const datos = { nodes: nodes.get(), edges: edges.get() };
+    AlmacenamientoGrafo.setNodos(datos.nodes);
+    AlmacenamientoGrafo.setAristas(datos.edges);
+    AlmacenamientoGrafo.guardarLocal();
+    alert("✅ Grafo guardado correctamente.");
+}
+
+// Exportar JSON + PDF
+function exportarGrafo() {
+    if (nodes.length === 0 && edges.length === 0) {
+        alert("⚠️ No hay grafo para exportar.");
+        return;
+    }
+
+    const datos = { nodes: nodes.get(), edges: edges.get() };
+
+    // JSON
+    const blobJson = new Blob([JSON.stringify(datos, null, 2)], { type: "application/json" });
+    const aJson = document.createElement("a");
+    aJson.href = URL.createObjectURL(blobJson);
+    aJson.download = "grafo.json";
+    aJson.click();
+
+    // PDF usando canvas interno de vis
+    const canvas = container.getElementsByTagName("canvas")[0];
+    if (!canvas) { alert("Error: no se pudo capturar el grafo para PDF."); return; }
+
+    const imgData = canvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('landscape');
+    
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+
+    // Mantener proporción
+    let imgWidth = pageWidth - 2 * margin;
+    let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    // Ajustar si excede alto de página
+    if (imgHeight > pageHeight - 2 * margin) {
+        imgHeight = pageHeight - 2 * margin;
+        imgWidth = (canvas.width * imgHeight) / canvas.height;
+    }
+
+    const x = (pageWidth - imgWidth) / 2;
+    const y = (pageHeight - imgHeight) / 2;
+
+    pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+    pdf.save("grafo.pdf");
+}
+
+// Importar JSON
+document.getElementById("btnImportar").addEventListener("click", () => {
+    alert("📂 Para importar un grafo, seleccione el archivo .json");
+    document.getElementById("importarGrafoInput").click();
+});
+
+document.getElementById("importarGrafoInput").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        try {
+            const data = JSON.parse(evt.target.result);
+            nodes.clear();
+            edges.clear();
+            contadorNodos = 0;
+            data.nodes.forEach(n => {
+                nodes.add({ id: n.id, label: n.label });
+                const num = parseInt(n.label.replace("N",""));
+                if(num > contadorNodos) contadorNodos = num;
+            });
+            data.edges.forEach(a => edges.add({ from: a.from, to: a.to, label: a.label }));
+            AlmacenamientoGrafo.setNodos(nodes.get());
+            AlmacenamientoGrafo.setAristas(edges.get());
+            AlmacenamientoGrafo.guardarLocal();
+            alert("✅ Grafo importado correctamente");
+        } catch(err) {
+            alert("❌ Error leyendo JSON: "+err);
+        }
+    };
+    reader.readAsText(file);
+});
+
+// ---------------- Actualización automática ----------------
+network.on("afterDrawing", () => {
+    AlmacenamientoGrafo.setNodos(nodes.get());
+    AlmacenamientoGrafo.setAristas(edges.get());
+});
+
+network.on("afterManipulation", () => {
+    AlmacenamientoGrafo.setNodos(nodes.get());
+    AlmacenamientoGrafo.setAristas(edges.get());
+});
