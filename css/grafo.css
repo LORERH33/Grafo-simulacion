@@ -231,3 +231,21 @@ button:hover {
     margin-top: 10px;
     margin-bottom: 35px;   /* más separación antes del grafo */
 }
+.iconos-instrucciones {
+    list-style: none; /* Quita los puntos */
+    padding: 0;
+    margin: 0;
+}
+
+.iconos-instrucciones li {
+    display: flex;        /* Poner imagen y texto en línea */
+    align-items: center;  /* Centrar verticalmente */
+    gap: 8px;             /* Espacio entre icono y texto */
+    margin-bottom: 10px;  /* Espacio entre filas */
+    font-size: 16px;      /* Tamaño del texto */
+}
+
+.iconos-instrucciones li .icono {
+    width: 24px;          /* Ancho del icono */
+    height: 24px;         /* Alto del icono */
+}

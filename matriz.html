@@ -6,6 +6,7 @@
     <title>Matriz de Adyacencia</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/matriz.css">
+    <link rel="stylesheet" href="css/ayuda.css">
     <script src="js/matriz.js" defer></script>
     <script src="js/script.js"></script>
 </head>
@@ -16,7 +17,16 @@
 
 <header>
     <h1>Matriz de Adyacencia</h1>
-    <p>Presiona "Generar Matriz" para ver la matriz del grafo guardado.</p>
+
+    <h2>Instrucciones</h2>
+
+    <ul class="instrucciones">
+        <li> <strong> ANTES DE PRESIONAR EL BOTON "Generar Matriz" 
+            DEBE HABER GUARDADO EL GRAFO EN LA PESTAÑA GRAFO</strong></li>
+
+        <li>Presione el boton "Generar Matriz" para mostrar la matriz de adyacencia del grafo guardado</li>
+
+        </ul>
 </header>
 <div class="contenedor">
     <nav id="sidebar" class="sidebar">
@@ -30,5 +40,28 @@
     <button id="btnGenerar">Generar Matriz</button>
     <table id="matriz" border="1" style="margin-top:20px; border-collapse: collapse; text-align:center;"></table>
 </main>
+
+
+<!-- Botón y panel de ayuda -->
+<button class="btn-ayuda" id="btnAyuda">❓</button>
+
+<div class="panel-ayuda" id="panelAyuda">
+    <div class="panel-header">
+        <h3>Ayuda de la pestaña GRAFOS</h3>
+        <span class="cerrar-ayuda" id="cerrarAyuda">✖</span>
+    </div>
+    <div class="panel-contenido">
+        <ul>
+            <h2>Instrucciones Generales</h2>
+            <li>Primero se debe guardar el grafo en la pestaña "GRAFO" para poder generar la matriz de adyacencia</li>
+            <li>Ya guardado el grafo se generara la matriz pulsando el boton "Generar Matriz"</li>
+        </ul>
+        <h2>Botones</h2>
+        <ul>
+       <li><strong>Generar Matriz:</strong> Genera la matriz de adyacencia del grafo guardado.</li>
+        </ul>
+    </div>
+</div>
+<script src="js/ayuda.js"></script>
 </body>
 </html>

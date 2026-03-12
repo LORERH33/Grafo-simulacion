@@ -6,6 +6,7 @@
     <title>Grafos</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/grafo.css">
+    <link rel="stylesheet" href="css/ayuda.css">
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,11 +49,25 @@
         </section>
 
         <!-- Sección de simulación -->
-        <section class="grafo-simulacion">
+        <section class="grafo-simulacion"> 
             <h2>Simulación de Grafo</h2>
-            <ul>
-                <li>Clic en el recuadro para crear nodos. Selecciona un nodo y arrastralo a otro nodo para crear arista. Ingresa peso.</li>
-                <li>Haz click en guardar grafo una vez termines de crearlo para asi generar la matriz de adyacencia en la seccion de matriz</li>
+            <h3>Instrucciones</h3>
+            <ul class="iconos-instrucciones">
+                <li>
+                    <img src="img/Editar.png" alt="Editar" class="icono"> <strong>Editar</strong>Click en el simbolo del panel para empezar a crear tu grafo
+                </li>
+                <li>
+                    <img src="img/Nodo.png" alt="Editar" class="icono"> <strong> Crear Nodo</strong>Click en el simbolo y luego en cualquier lugar del panel para crear un nodo
+                </li>
+                <li>
+                    <img src="img/Arista.png" alt="Editar" class="icono"> <strong> Crear Arista</strong> Clic en el simbolo para crear la arista, selecciona un nodo arrastra al que deseas y para conectar la arista a un mismo nodo solo click en el nodo
+                </li>
+                <li>
+                    <img src="img/Atras.png" alt="Editar" class="icono"> <strong> Atras</strong> Click en el simbolo para regresar atras
+                </li>
+                <li>Haz click en el boton "Guardar Grafo" una vez termines de crearlo,
+                    para asi generar la matriz de adyacencia en la seccion de matriz
+                 </li>
             </ul>
          
             <!-- Botones principales -->
@@ -80,5 +95,36 @@
 <script src="js/almacenamiento.js"></script>
 <script src="js/grafo.js"></script>
 <script src="js/script.js"></script>
+
+<!-- Botón y panel de ayuda -->
+<button class="btn-ayuda" id="btnAyuda">❓</button>
+
+<div class="panel-ayuda" id="panelAyuda">
+    <div class="panel-header">
+        <h3>Ayuda de la pestaña GRAFOS</h3>
+        <span class="cerrar-ayuda" id="cerrarAyuda">✖</span>
+    </div>
+    <div class="panel-contenido">
+        <ul>
+            <h2>Instrucciones Generales</h2>
+            <li>Las instrucciones de como usar el panel para la simulacion del
+                 grafo estan encima del panel, con su respectivo icono</li>
+            <li>Usa la rueda del raton para alejar o acercar mas la simulacion del grafo</li>
+            <li>Para recorrer la pagina no posiciones el cursor en el panel, usa la 
+                rueda del mouse fuera del panel para recorrer la pagina</li>
+        </ul>
+        <h2>Botones</h2>
+        <ul>
+            <li><strong>Borrar Todo:</strong> Elimina todos los nodos y aristas del grafo.</li>
+            <li><strong>Borrar Selección:</strong> Elimina el nodo o arista actualmente seleccionado. 
+                Primero se selecciona lo que se desea borrar y se preciona el boton</li>
+            <li><strong>Editar peso de arista:</strong> Permite modificar el peso de una arista seleccionada. Primero se debe seleccionar la arista</li>
+            <li><strong>Guardar Grafo:</strong> Guarda la estructura actual del grafo para su uso en la sección de matriz.</li>
+            <li><strong>Exportar Grafo (JSON + PDF):</strong> Exporta el grafo actual en formato JSON y genera un PDF con su visualización.</li>
+            <li><strong>Seleccionar archivo:</strong> Permite cargar un grafo previamente guardado en formato JSON. Haz click en "Seleccionar Archivo" y elige el archivo .json que deseas importar.</li>
+        </ul>
+    </div>
+</div>
+<script src="js/ayuda.js"></script>
 </body>
 </html>

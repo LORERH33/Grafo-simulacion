@@ -1,0 +1,63 @@
+/* ---------------- BOTÓN DE AYUDA ---------------- */
+#btnAyuda {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #000080;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centra el "?" */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+#btnAyuda:hover {
+    background-color: #1e3cff;
+    transform: scale(1.1);
+}
+
+/* ---------------- PANEL DE AYUDA ---------------- */
+.panel-ayuda {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background: rgba(255,255,255,0.95);
+    border: 2px solid #000080;
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    display: none; /* oculto hasta que se haga click */
+    z-index: 9999;
+}
+
+/* Encabezado dentro del panel */
+.panel-ayuda h3 {
+    color: #000080;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Lista con viñetas */
+.panel-ayuda ul {
+    list-style-type: disc; /* puntos */
+    padding-left: 20px;
+    color: #222;
+    font-size: 14px;
+}
+
+.panel-ayuda li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}

@@ -1,4 +1,3 @@
-// grafo.js
 var nodes = new vis.DataSet([]);
 var edges = new vis.DataSet([]);
 var container = document.getElementById("grafo-container");
@@ -14,10 +13,7 @@ var options = {
             callback(data);
         },
         addEdge: function (data, callback) {
-            if (data.from === data.to) { 
-                alert("❌ No se permite conectar un nodo consigo mismo"); 
-                return; 
-            }
+            // Permite aristas al mismo nodo
             var peso = prompt("Ingrese peso (entero):");
             if (peso === null) return;
             if (!Number.isInteger(Number(peso))) { 
@@ -105,11 +101,9 @@ function exportarGrafo() {
     const pageHeight = pdf.internal.pageSize.getHeight();
     const margin = 10;
 
-    // Mantener proporción
     let imgWidth = pageWidth - 2 * margin;
     let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    // Ajustar si excede alto de página
     if (imgHeight > pageHeight - 2 * margin) {
         imgHeight = pageHeight - 2 * margin;
         imgWidth = (canvas.width * imgHeight) / canvas.height;
