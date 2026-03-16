@@ -61,17 +61,17 @@ function borrarSeleccion() {
 }
 
 // Guardar grafo en localStorage
-function guardarGrafo() {
-    if (nodes.length === 0 && edges.length === 0) {
-        alert("⚠️ No hay grafo para guardar.");
-        return;
-    }
-    const datos = { nodes: nodes.get(), edges: edges.get() };
-    AlmacenamientoGrafo.setNodos(datos.nodes);
-    AlmacenamientoGrafo.setAristas(datos.edges);
-    AlmacenamientoGrafo.guardarLocal();
-    alert("✅ Grafo guardado correctamente.");
-}
+ //function guardarGrafo() {
+   //   if (nodes.length === 0 && edges.length === 0) {
+     //   alert("⚠️ No hay grafo para guardar.");
+       // return;
+    //}
+    //const datos = { nodes: nodes.get(), edges: edges.get() };
+    //AlmacenamientoGrafo.setNodos(datos.nodes);
+    //AlmacenamientoGrafo.setAristas(datos.edges);
+    //AlmacenamientoGrafo.guardarLocal();
+    //alert("✅ Grafo guardado correctamente.");
+//}
 
 // Exportar JSON + PDF
 function exportarGrafo() {
@@ -159,3 +159,65 @@ network.on("afterManipulation", () => {
     AlmacenamientoGrafo.setNodos(nodes.get());
     AlmacenamientoGrafo.setAristas(edges.get());
 });
+
+// ---------------- Matriz de Adyacencia ----------------
+
+function generarMatriz() {
+    const nodos = nodes.get();
+    const aristas = edges.get();
+
+    if (nodos.length === 0) {
+        alert("⚠️ No hay nodos");
+        return;
+    }
+
+    const tabla = document.getElementById("matriz");
+    let html = "<tr><th></th>";
+
+    // Cabeceras de nodos
+    nodos.forEach(n => html += `<th>${n.label}</th>`);
+    html += `<th class="suma">Suma (Σ)</th><th class="aristas">#Aristas</th></tr>`;
+
+    let sumaColumnas = new Array(nodos.length).fill(0);
+    let aristasColumnas = new Array(nodos.length).fill(0);
+    let totalAristas = 0;
+
+    // Filas de cada nodo
+    nodos.forEach((fila) => {
+        let sumaFila = 0;
+        let aristasFila = 0;
+        html += `<tr><th>${fila.label}</th>`;
+
+        nodos.forEach((columna, j) => {
+            let arista = aristas.find(a => a.from === fila.id && a.to === columna.id);
+            let valor = arista ? parseInt(arista.label) : 0;
+            html += `<td>${valor}</td>`;
+            sumaFila += valor;
+            sumaColumnas[j] += valor;
+
+            if (arista) {
+                aristasFila++;
+                aristasColumnas[j]++;
+                totalAristas++;
+            }
+        });
+
+        html += `<td class="suma">${sumaFila}</td><td class="aristas">${aristasFila}</td></tr>`;
+    });
+
+    // Fila de sumas de valores (solo suma de valores, no aristas)
+    html += `<tr><th class="suma">Suma (Σ)</th>`;
+    sumaColumnas.forEach(v => html += `<td class="suma">${v}</td>`);
+    html += `<td class="suma"></td>`; // celda vacía
+    html += `<td class="aristas"></td>`; // celda vacía también
+    html += `</tr>`;
+
+    // Fila de #Aristas con total en la esquina inferior derecha
+    html += `<tr><th class="aristas">#Aristas</th>`;
+    aristasColumnas.forEach(v => html += `<td class="aristas">${v}</td>`);
+    html += `<td class="aristas"></td>`; // celda vacía antes de la esquina
+    html += `<td class="interseccion">${totalAristas}</td>`; // esquina inferior derecha
+    html += `</tr>`;
+
+    tabla.innerHTML = html;
+}

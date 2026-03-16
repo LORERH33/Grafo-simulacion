@@ -26,7 +26,6 @@
         <a href="index.html">Inicio</a>
         <a href="pagina1.html">Algoritmos matematicos</a>
         <a href="grafo.html">Grafo</a>
-        <a href="matriz.html">Matriz</a>
     </nav>
 
     <main class="contenido">
@@ -75,7 +74,7 @@
                 <button onclick="borrarTodo()">Borrar Todo</button>
                 <button onclick="borrarSeleccion()">Borrar Selección</button>
                 <button onclick="editarPeso()">Editar peso de arista</button>
-                <button onclick="guardarGrafo()">Guardar Grafo</button>
+               <!--<button onclick="guardarGrafo()">Guardar Grafo</button>-->
                 <button onclick="exportarGrafo()">Exportar Grafo (JSON + PDF)</button>
             </div>
 
@@ -95,6 +94,15 @@
 <script src="js/almacenamiento.js"></script>
 <script src="js/grafo.js"></script>
 <script src="js/script.js"></script>
+
+<!--Boton Matriz-->
+<section class="subseccion-grafo">
+    <div id="contenedorMatriz">
+        <h2 class="matriz-titulo">Matriz de Adyacencia</h2>
+        <button onclick="generarMatriz()" class="btn-matriz">Generar Matriz de Adyacencia</button>
+        <table id="matriz"></table>
+    </div>
+</section>
 
 <!-- Botón y panel de ayuda -->
 <button class="btn-ayuda" id="btnAyuda">❓</button>

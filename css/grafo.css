@@ -40,7 +40,7 @@ body {
     transform: scale(1.1);
 }
 
-/* HEADER - BANNER */
+/* HEADER */
 header {
     margin-top: 50px;
     text-align: center;
@@ -55,7 +55,6 @@ header img {
     height: 100%;
     object-fit: cover;
 }
-
 
 /* SIDEBAR */
 .sidebar {
@@ -152,6 +151,26 @@ button:hover {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
+/* BOTÓN GENERAR MATRIZ */
+#btnGenerar, button[onclick="generarMatriz()"] {
+    display: block;
+    margin: 25px auto;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #000080, #1e3cff);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+}
+
+#btnGenerar:hover, button[onclick="generarMatriz()"]:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
 /* IMPORTAR GRAFO */
 .importar-grafo {
     text-align: center;
@@ -193,59 +212,64 @@ button:hover {
     border-radius: 10px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .botones-grafo {
-        flex-direction: column;
-        gap: 10px;
-    }
 
-    #grafo-container {
-        height: 500px;
-    }
-}
-/* SECCIÓN SIMULACIÓN - ESPACIADO INTERNO */
-.grafo-simulacion ul {
-    margin-bottom: 30px;   /* espacio debajo del texto */
-    padding-left: 20px;
-}
-
-.grafo-simulacion li {
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-
-/* BOTONES PRINCIPALES DEL GRAFO */
-.botones-grafo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 25px;      /* espacio arriba */
-    margin-bottom: 30px;   /* espacio abajo */
-}
-
-/* IMPORTAR GRAFO */
-.importar-grafo {
+/* MATRIZ DE ADYACENCIA */
+/* Contenedor matriz */
+#contenedorMatriz {
+    margin-top: 30px;
+    overflow-x: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.07);
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 35px;   /* más separación antes del grafo */
-}
-.iconos-instrucciones {
-    list-style: none; /* Quita los puntos */
-    padding: 0;
-    margin: 0;
 }
 
-.iconos-instrucciones li {
-    display: flex;        /* Poner imagen y texto en línea */
-    align-items: center;  /* Centrar verticalmente */
-    gap: 8px;             /* Espacio entre icono y texto */
-    margin-bottom: 10px;  /* Espacio entre filas */
-    font-size: 16px;      /* Tamaño del texto */
+/* Tabla */
+#matriz {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 16px;
 }
 
-.iconos-instrucciones li .icono {
-    width: 24px;          /* Ancho del icono */
-    height: 24px;         /* Alto del icono */
+/* Celdas normales */
+#matriz th, #matriz td {
+    border: 1px solid #1e3cff;
+    padding: 12px;
+}
+
+/* Cabeceras */
+#matriz th {
+    background: #1e3cff;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Filas alternadas */
+#matriz tr:nth-child(even) td {
+    background-color: #f0f4ff;
+}
+
+#matriz tr:hover td {
+    background-color: #d0e0ff;
+}
+
+/* Suma y #Aristas */
+#matriz td.suma, #matriz td.aristas {
+    font-weight: bold;
+    background-color: #c0d0ff;
+    color: #000080;
+}
+
+/* Intersección total de aristas (esquina inferior derecha) */
+#matriz td.interseccion {
+    font-weight: bold;
+    background-color: #000080;
+    color: #1b1063;
+    border: 3px double #1e3cff;  /* borde más grueso y doble para resaltar */
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.4); /* brillo interno */
+    font-size: 18px; /* un poco más grande */
 }
